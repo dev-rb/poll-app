@@ -11,11 +11,12 @@ datasource db {
 }
 
 model Poll {
-  id        String       @id @default(cuid())
-  name      String
-  choices   PollChoice[]
-  timeLimit Int
-  createdAt DateTime     @default(now())
+  id         String       @id @default(cuid())
+  name       String
+  totalVotes Int
+  choices    PollChoice[]
+  timeLimit  Int
+  createdAt  DateTime     @default(now())
 }
 
 model PollChoice {
