@@ -4,6 +4,7 @@ import http from 'http';
 import cors from 'cors';
 import session, { Session } from "express-session";
 import { Server } from 'socket.io';
+import dayjs from "dayjs";
 
 declare module "http" {
     interface IncomingMessage {
@@ -60,11 +61,12 @@ app.post('/polls/new', async (req: Request, res: Response) => {
 
     const receivedChoices: string[] = req.body.pollChoices;
     const newChoices = receivedChoices.map((val) => ({ title: val, votes: 0 }));
+    const endTime = req.body.pollTimeLimit.amount === -1 ? null : dayjs().add(req.body.pollTimeLimit.amount, req.body.pollTimeLimit.unit).toString();
 
     const newPoll = await prisma.poll.create({
         data: {
             name: reqBody.pollTitle,
-            timeLimit: reqBody.pollTimeLimit,
+            endTime: endTime === null ? null : new Date(endTime),
             totalVotes: 0,
             choices: {
                 createMany: {
@@ -88,7 +90,7 @@ io.on("connection", (socket) => {
 
     // console.log("Someone connected! ", socket.id);
     socket.on("JOIN_A_ROOM", (roomId) => {
-        console.log(`${socket.id} wants to join ${roomId}`);
+        // console.log(`${socket.id} wants to join ${roomId}`);
         socket.join(roomId);
     });
 
@@ -96,7 +98,7 @@ io.on("connection", (socket) => {
         // socket.use((_, next) => {
         //     console.log("Checking if user has already voted!")
         // })
-        console.log("Trying to update poll with id: ", pollId);
+        // console.log("Trying to update poll with id: ", pollId);
         prisma.poll.update({
             where: {
                 id: pollId

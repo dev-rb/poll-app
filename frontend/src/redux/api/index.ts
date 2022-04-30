@@ -43,10 +43,10 @@ export const api = createApi({
                     ]
                     : [{ type: 'POLLCHOICE', id: 'LIST' }],
         }),
-        createPoll: builder.mutation<IPoll, { pollTitle: string, pollTimeLimit: { amount: number, unit: string }, pollChoices: string[] }>({
-            query: ({ pollTitle, pollTimeLimit, pollChoices }) => ({
+        createPoll: builder.mutation<IPoll, { pollTitle: string, pollEndTimeAmount: number, pollEndTimeUnit: string, pollChoices: string[] }>({
+            query: ({ pollTitle, pollEndTimeAmount, pollEndTimeUnit, pollChoices }) => ({
                 url: '/polls/new',
-                body: { pollTitle, pollChoices, pollTimeLimit },
+                body: { pollTitle, pollChoices, pollTimeLimit: { amount: pollEndTimeAmount, unit: pollEndTimeUnit } },
                 method: 'POST'
             }),
         })

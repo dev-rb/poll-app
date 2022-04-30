@@ -15,7 +15,7 @@ model Poll {
   name       String
   totalVotes Int
   choices    PollChoice[]
-  timeLimit  Int
+  endTime    DateTime?
   createdAt  DateTime     @default(now())
 }
 

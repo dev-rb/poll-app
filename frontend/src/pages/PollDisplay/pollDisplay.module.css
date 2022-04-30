@@ -17,16 +17,19 @@
 }
 
 .displayChoices {
-    width: 50rem;
+    width: 100%;
+    max-width: 80%;
     height: 100%;
     max-height: 80%;
     display: flex;
+    justify-content: center;
     gap: 12rem;
     overflow: visible;
 }
 
 .titleAndChoices {
     width: 100%;
+    max-width: 35rem;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -55,6 +58,13 @@
 
 .choicesHeader h6 span {
     color: #5FDF9E;
+}
+
+.choicesHeader h6:last-child {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0;
+    color: #DF8E5F;
 }
 
 .pollChoices {
@@ -86,6 +96,7 @@
 
 .choiceContainer {
     width: 100%;
+    max-width: 30rem;
     min-height: fit-content;
     padding: 1.5rem 1rem;
     background-color: #1D1D20;
@@ -206,4 +217,65 @@
     margin: 0;
 }
 
-.timePorgress {}
+@media screen and (max-width: 768px) {
+
+    .displayChoices {
+        max-width: 100%;
+    }
+
+    .choicesHeader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        min-height: 8rem;
+        background-color: #1D1D20;
+        border-bottom: 2px solid #464444;
+        gap: 1rem;
+        padding: 1rem 1rem;
+        z-index: 10;
+    }
+
+    .choicesHeader h1 {
+        font-size: 2rem;
+    }
+
+    .userValueAndSubmit {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        min-height: 8rem;
+        background: #101011;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        padding: 0 1rem;
+        z-index: 10;
+    }
+
+    .choiceLabel {
+        flex: 2;
+    }
+
+    .choiceLabel h4 {
+        font-size: 1rem;
+    }
+
+    .choiceLabel h1 {
+        font-size: 1.2rem;
+    }
+
+    .shareLink {
+        display: none;
+    }
+
+    .pollChoices {
+        min-width: fit-content;
+        padding-right: 0;
+        padding: 5rem 1rem 8rem 1rem;
+    }
+
+}

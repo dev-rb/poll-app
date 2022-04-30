@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MdSend } from 'react-icons/md';
-import { Button, createStyles, NumberInput, TextInput } from '@mantine/core';
+import { Button, createStyles, NumberInput, SegmentedControl, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useNavigate } from 'react-router-dom';
 import styles from './pollCreate.module.css';
@@ -18,14 +18,17 @@ const PollCreate = () => {
     const form = useForm({
         initialValues: {
             pollTitle: '',
-            pollTimeLimit: { amount: -1, unit: 'seconds' },
+            pollEndTimeAmount: -1,
+            pollEndTimeUnit: 'seconds',
             pollChoices: ''
         },
         validate: {
             pollTitle: (value) => value.trim().length === 0 ? 'Title cannot be empty' : null,
             pollChoices: (value) => value.trim().length === 0 ? 'Choices cannot be empty' : null
         }
-    })
+    });
+
+    const [timeUnit, setTimeUnit] = React.useState('seconds');
 
     const { classes } = useStyles();
 
@@ -33,7 +36,7 @@ const PollCreate = () => {
 
     const navigate = useNavigate();
 
-    const createPoll = async (values: { pollTitle: string, pollTimeLimit: { amount: number, unit: string }, pollChoices: string }) => {
+    const createPoll = async (values: { pollTitle: string, pollEndTimeAmount: number, pollEndTimeUnit: string, pollChoices: string }) => {
         const allChoices = values.pollChoices.split(',');
         const createdPoll = await createPollMutation({ ...values, pollChoices: allChoices }).unwrap();
         console.log("Receieved created poll! ", createdPoll, createdPoll.id)
@@ -56,10 +59,21 @@ const PollCreate = () => {
                         />
                         <NumberInput
                             classNames={classes}
+                            hideControls
+                            defaultValue={-1}
                             min={-1}
                             label="Time limit"
                             description="Set a time limit for when the poll will end."
-                            {...form.getInputProps('pollTimeLimit')}
+                            {...form.getInputProps('pollEndTimeAmount')}
+                        />
+                        <SegmentedControl
+                            styles={{ root: { backgroundColor: '#3D3D43' }, label: { color: '#888888', ':hover': { color: '#ACACAC' } }, active: { backgroundColor: '#3071E8', color: 'white !important' }, labelActive: { color: 'white !important' } }}
+                            data={[
+                                { label: 'Seconds', value: 'seconds' },
+                                { label: 'Minutes', value: 'minutes' },
+                                { label: 'Hours', value: 'hours' },
+                            ]}
+                            {...form.getInputProps('pollEndTimeUnit')}
                         />
 
                     </div>

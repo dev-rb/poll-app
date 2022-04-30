@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Poll" ALTER COLUMN "endTime" DROP NOT NULL;

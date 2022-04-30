@@ -3,7 +3,7 @@ export interface IPoll {
     name: string,
     totalVotes: number,
     choices: IPollChoice[],
-    timeLimit?: number,
+    endTime?: Date,
     createdAt: Date
 }
 
