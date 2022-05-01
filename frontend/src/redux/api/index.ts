@@ -27,7 +27,6 @@ export const api = createApi({
 
                         updateCachedData((draft) => {
                             Object.assign(draft, newUpdates);
-                            draft.choices.sort((a, b) => b.votes - a.votes);
                         });
                     }
 

@@ -47,10 +47,14 @@ app.get('/polls/:id', async (req: Request, res: Response) => {
             id: pollId
         },
         include: {
-            choices: true
+            choices: {
+                orderBy: {
+                    title: 'desc',
+                    votes: 'desc'
+                }
+            }
         }
     });
-
     res.json(pollWithId);
 });
 
@@ -75,7 +79,12 @@ app.post('/polls/new', async (req: Request, res: Response) => {
             },
         },
         include: {
-            choices: true
+            choices: {
+                orderBy: {
+                    title: 'desc',
+                    votes: 'desc'
+                }
+            }
         }
     });
 
@@ -121,7 +130,12 @@ io.on("connection", (socket) => {
                 }
             },
             include: {
-                choices: true
+                choices: {
+                    orderBy: {
+                        title: 'desc',
+                        votes: 'desc'
+                    }
+                }
             }
         }).then((val) => {
             io.to(pollId).emit("updatePoll", val);
