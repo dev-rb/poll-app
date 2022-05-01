@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { IPoll } from '../../types';
 import socket from '../../utils/socket';
 
-const BASE_URL = "http://localhost:3001";
-
+const BASE_URL = process.env.NODE_ENV === 'development' ? "http://localhost:3001" : "https://poll-app-votes.herokuapp.com/";
+console.log(process.env.NODE_ENV)
 export const api = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
     endpoints: (builder) => ({
