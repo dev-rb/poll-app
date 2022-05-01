@@ -4,7 +4,7 @@ import socket from '../../utils/socket';
 
 const BASE_URL = process.env.NODE_ENV === 'development' ? "http://localhost:3001" : "https://poll-app-votes.herokuapp.com/";
 
-socket.on("error", (error) => {
+socket.on("connect_error", (error) => {
     console.log("Failed to connect", error)
 });
 
