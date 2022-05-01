@@ -3,7 +3,11 @@ import { IPoll } from '../../types';
 import socket from '../../utils/socket';
 
 const BASE_URL = process.env.NODE_ENV === 'development' ? "http://localhost:3001" : "https://poll-app-votes.herokuapp.com/";
-console.log(process.env.NODE_ENV)
+
+socket.on("error", (error) => {
+    console.log("Failed to connect", error)
+});
+
 export const api = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
     endpoints: (builder) => ({
