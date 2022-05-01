@@ -41,7 +41,7 @@ const PollCreate = () => {
         const createdPoll = await createPollMutation({ ...values, pollChoices: allChoices }).unwrap();
         console.log("Receieved created poll! ", createdPoll, createdPoll.id)
         setTimeout(() => {
-            navigate(`${createdPoll.id}`, { replace: true });
+            navigate(`${createdPoll.id}`);
         }, 1000)
     }
 
