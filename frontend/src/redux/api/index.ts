@@ -20,7 +20,6 @@ export const api = createApi({
                     await cacheDataLoaded;
 
                     const handleIncomingListener = (newUpdates: any) => {
-                        // console.log("New Updates coming in: ", newUpdates)
                         if (newUpdates.id !== arg) {
                             return;
                         }

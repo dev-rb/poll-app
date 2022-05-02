@@ -25,13 +25,13 @@ const server = http.createServer(app);
 //     saveUninitialized: false
 // })
 
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: ['https://poll-app-orpin.vercel.app', 'http://localhost:3000'] }));
 // app.use(sessionMiddleware);
 app.use(express.json());
 
 const io = new Server(server, {
     cors: {
-        origin: '*',
+        origin: ['https://poll-app-orpin.vercel.app', 'http://localhost:3000'],
         methods: ["GET", "POST"]
     }
 });
@@ -50,7 +50,6 @@ app.get('/polls/:id', async (req: Request, res: Response) => {
             choices: {
                 orderBy: {
                     title: 'desc',
-                    votes: 'desc'
                 }
             }
         }
@@ -82,7 +81,6 @@ app.post('/polls/new', async (req: Request, res: Response) => {
             choices: {
                 orderBy: {
                     title: 'desc',
-                    votes: 'desc'
                 }
             }
         }
@@ -90,9 +88,6 @@ app.post('/polls/new', async (req: Request, res: Response) => {
 
     res.json(newPoll)
 });
-
-// io.use((socket, next) => sessionMiddleware(socket.request as Request, {} as Response, next as NextFunction));
-
 
 io.on("connection", (socket) => {
 
@@ -104,10 +99,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on("INCREASE", ({ roomId, pollId, choiceId }) => {
-        // socket.use((_, next) => {
-        //     console.log("Checking if user has already voted!")
-        // })
-        // console.log("Trying to update poll with id: ", pollId);
+
         prisma.poll.update({
             where: {
                 id: pollId
@@ -133,7 +125,6 @@ io.on("connection", (socket) => {
                 choices: {
                     orderBy: {
                         title: 'desc',
-                        votes: 'desc'
                     }
                 }
             }

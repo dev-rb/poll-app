@@ -1,0 +1,63 @@
+.choicesHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.choicesHeader h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 0;
+    color: white;
+}
+
+.choicesHeader h6 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0;
+    color: #77777E;
+}
+
+.choicesHeader h6 span {
+    color: #5FDF9E;
+}
+
+.pollTimerEnd {
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    padding: 0.15rem 1rem;
+    background-color: #926146;
+
+}
+
+.pollTimerEnd h6 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0;
+    color: #E3C6B5;
+}
+
+@media screen and (max-width: 768px) {
+
+    .choicesHeader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        min-height: 8rem;
+        background-color: #1D1D20;
+        border-bottom: 2px solid #464444;
+        gap: 1rem;
+        padding: 1rem 1rem;
+        z-index: 10;
+    }
+
+    .choicesHeader h1 {
+        font-size: 2rem;
+    }
+
+}
